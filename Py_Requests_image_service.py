@@ -1,8 +1,8 @@
 import requests
 
 # Base URL of the Image Server
-# base_url = "https://gis.apfo.usda.gov/arcgis/rest/services/NAIP/USDA_CONUS_PRIME/ImageServer"
-base_url = "https://tiles.arcgis.com/tiles/RvqSyw3diI7dTKo5/arcgis/rest/services/SC_2023_RGB/MapServer"
+base_url = "https://gis.apfo.usda.gov/arcgis/rest/services/NAIP/USDA_CONUS_PRIME/ImageServer"
+# base_url = "https://tiles.arcgis.com/tiles/RvqSyw3diI7dTKo5/arcgis/rest/services/SC_2023_RGB/MapServer"
 
 # Parameters to export the highest resolution
 params = {
@@ -11,9 +11,8 @@ params = {
     "bboxSR": "3857",  # Spatial reference of the bounding box (use the service's native SR)
     "imageSR": "3857",  # Spatial reference of the output image
     "format": "tiff",  # TIFF for high quality
-    "pixelType": "UNKNOWN",  # Keep native pixel depth
-    "noData": "0",  # Set to match service's no-data value
-    "compression": "None"  # Request uncompressed image
+    "pixelType": "U8",  # Keep native pixel depth
+    "size": "800,800"
 }
 
 # Construct the export image URL

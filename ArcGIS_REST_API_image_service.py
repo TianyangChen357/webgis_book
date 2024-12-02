@@ -30,25 +30,21 @@ for i, bbox in enumerate(bboxes):
     bbox_str = ",".join(map(str, bbox))
 
     # Query the image service
-    try:
-        image_result = image_layer.export_image(
-            bbox=bbox_str,  # Bounding box in WGS84
-            bbox_sr=4326,  # Spatial reference for the bounding box (WGS84)
-            image_sr=4326,  # Spatial reference for the output image
-            f="image",  # Format of the request (image)
-            export_format="tiff",  # Desired output format
-            compression=None,
-            compression_quality=100,
-            size=[2500,2500]
+
+    output_file = f"USDA_Santee_{i + 1}.tif"
+    image_result = image_layer.export_image(
+        bbox=bbox_str,  # Bounding box in WGS84
+        bbox_sr=4326,  # Spatial reference for the bounding box (WGS84)
+        image_sr=4326,  # Spatial reference for the output image
+        f="image",  # Format of the request (image)
+        export_format="tiff",  # Desired output format
+        compression=None,
+        compression_quality=100,
+        save_folder='/home/tchen19/webgis_book',
+        save_file=output_file,
+        size=[2500,2500]
+            
         )
+    print(f"Image {i + 1} saved to {output_file}")
 
-        # Save the image to a file
-        output_file = f"USDA_Santee_Santee_{i + 1}.tif"  # Unique file name for each bbox
-        with open(output_file, "wb") as f:
-            f.write(image_result)
 
-        print(f"Image {i + 1} saved to {output_file}")
-
-    except Exception as e:
-        print(f"Failed to process bbox {i + 1}: {bbox}")
-        print(f"Error: {e}")
